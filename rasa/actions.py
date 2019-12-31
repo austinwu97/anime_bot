@@ -1,0 +1,109 @@
+# This files contains your custom actions which can be used to run
+# custom Python code.
+#
+# See this guide on how to implement these action:
+# https://rasa.com/docs/rasa/core/actions/#custom-actions/
+#
+#
+# This is a simple example for a custom action which utters "Hello World!"
+from jikanpy import Jikan
+from typing import Any, Text, Dict, List
+
+from rasa_sdk import Action, Tracker
+from rasa_sdk.executor import CollectingDispatcher
+from rasa_sdk.events import UserUtteranceReverted
+
+NUMBER_OF_SEARCH_RESULT = 1
+
+class ActionHelloWorld(Action):
+
+    def name(self) -> Text:
+        return "action_hello_world"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+        dispatcher.utter_message(text="Hello Pooge!")
+        #dispatcher.utter_message(text="Testing")
+        #dispatcher.utter_message(text=str(tracker.current_state()['latest_message']['text']))
+
+        return []
+
+
+class ActionSearch(Action):
+
+    def name(self) -> Text:
+        return "action_search"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+        dispatcher.utter_message(text="Returning the top 1 results...")
+        #dispatcher.utter_message(text=str(tracker.current_state()['latest_message']['text']))
+        user_input = tracker.current_state()['latest_message']['text']
+        output = self.search(user_input)
+        for i in output:
+
+            image = {
+                "type": "image",
+                "payload": {
+                    "src": i['image_url']
+                }
+            }
+
+            video = {
+                "type": "video",
+                "payload": {
+                    "src": i['trailer_url']
+                }
+            }
+
+            dispatcher.utter_message(text=i['title'], attachment=image)
+            dispatcher.utter_message(attachment=video)
+            dispatcher.utter_message(text="Read more about it here: " + i['url'])
+            #dispatcher.utter_message(text=i['image_url'])
+            #dispatcher.utter_message(text=i['trailer_url'])
+
+            #dispatcher.utter_message(text=i['synopsis'])
+            #dispatcher.utter_message(text=i['score'])
+            #dispatcher.utter_message(text=i['episodes'])
+            #dispatcher.utter_message(text=i['rating'])
+            #dispatcher.utter_message(text="===")
+
+        return []
+
+    def search(self, user_input):
+        jikan = Jikan()
+        output = []
+        user_input = user_input.split(' ', 1)[1]
+        search = jikan.search('anime', user_input)
+        animes = search['results'][:NUMBER_OF_SEARCH_RESULT]  # get first NUMBER_OF_SEARCH_RESULT results
+
+        '''
+        for each anime, retrieve the mal_id and obtain:
+            a. image url
+            b. trailer url
+            c. score
+            d. episodes
+            e. rating
+            f. synopsis
+        '''
+        for anime in animes:
+            anime_output = {}
+            mal_id = anime['mal_id']
+            current_anime = jikan.anime(mal_id)
+
+            anime_output['title'] = current_anime['title']
+            anime_output['url'] = current_anime['url']
+            anime_output['image_url'] = current_anime['image_url']
+            anime_output['trailer_url'] = current_anime['trailer_url']
+            #anime_output['synopsis'] = current_anime['synopsis']
+            #anime_output['score'] = current_anime['score']
+            #anime_output['episodes'] = current_anime['episodes']
+            #anime_output['rating'] = current_anime['rating']
+
+            output.append(anime_output)
+
+        return output
