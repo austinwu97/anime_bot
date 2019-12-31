@@ -1,0 +1,59 @@
+<html>
+
+<body/>
+
+<div id="main"/>
+
+<div id="webchat"/>
+<!--script src="https://storage.googleapis.com/mrbot-cdn/webchat-latest.js"></script-->
+<script src="/Users/denniswu/projects/rasa-webchat/rasa-webchat/lib/index.js"></script>
+
+// Or you can replace latest with a specific version
+<script>
+  WebChat.default.init({
+    selector: "#webchat",
+    initPayload: "/get_started",
+    customData: {"userId": "123"}, // arbitrary custom data. Stay minimal as this will be added to the socket
+    socketUrl: "http://localhost:5005",
+    socketPath: "/socket.io/",
+    title: "Austin First Bot",
+    subtitle: "Anime Bot",
+    inputTextFieldHint: "Type a message...",
+    connectingText: "Waiting for server...",
+    hideWhenNotConnected: true,
+    fullScreenMode: false,
+    showFullScreenButton: false,
+    profileAvatar: "https://image.flaticon.com/icons/svg/147/147144.svg",
+    openLauncherImage: 'https://d1nhio0ox7pgb.cloudfront.net/_img/o_collection_png/green_dark_grey/512x512/plain/folder_open.png',
+    closeLauncherImage: 'https://www.freeiconspng.com/uploads/close-icon-20.jpg',
+    displayUnreadCount: true, // --> [view](./assets/unread_count_pastille.png)
+    showMessageDate: false,
+    tooltipPayload: '/get_tooltip',
+    tooltipDelay: 1000,
+    customMessageDelay: (message) => {
+      if (message.length > 100) return 2000;
+      return 1000;
+    },
+    params: {
+      images: {
+        dims: {
+          width: 300,
+          height: 200,
+        }
+      },
+      storage: "local"
+    },
+  })
+</script>
+
+World
+
+<p>
+
+rasa run -m models --enable-api --cors "*"
+
+
+
+
+</body>
+</html>
