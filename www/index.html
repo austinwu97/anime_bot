@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Mr.Bot - Web Chat</title>
+</head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+.conversation-container {
+   width: 500px;
+   background-color: linen;
+}
+
+</style>
+
+<body>
+<script src="index.js" type="text/javascript"></script>
+<div id="webchat"></div>
+<script>
+  WebChat.default.init({
+    selector: "#webchat",
+    initPayload: "/get_started",
+    socketUrl: "http://localhost:5005/",
+    socketPath: "/socket.io/",
+    title: "My amazing chat",
+    // subtitle: 'A subtitle',
+    inputTextFieldHint: "Type a message...",
+    connectingText: "Waiting for server...",
+    hideWhenNotConnected: false,
+    onSocketEvent: {
+      'bot_uttered': () => console.log('bot uttered'),
+    },
+    showFullScreenButton: true,
+    fullScreenMode: true,
+    docViewer: false,
+    params: {
+      images: {
+        dims: {
+          width: 300,
+          height: 200
+        }
+      },
+      storage: "local"
+    }
+  })
+</script>
+</body>
+
+</html>
