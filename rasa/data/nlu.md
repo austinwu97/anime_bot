@@ -68,3 +68,22 @@
 - let us get started
 - let us start
 - let us get it going
+
+## intent:top_anime
+- top anime
+- top shows
+- what are the top anime
+- highest rated anime
+- best anime
+- superb anime
+- highest rating anime
+
+## intent:airing_today
+- what are the shows airing today?
+- what's airing today?
+- today's shows
+- what is currently on today?
+- what can i watch today
+- today's shows please
+- show me todays airing shows
+- airing shows today

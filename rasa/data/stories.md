@@ -37,3 +37,11 @@
 ## get_started
 * get_started
   - utter_get_started
+ 
+## top_anime
+* top_anime
+  - action_top_anime
+
+## airing_today
+* airing_today
+  - action_airing_today

@@ -12,8 +12,10 @@ from typing import Any, Text, Dict, List
 from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk.events import UserUtteranceReverted
+from datetime import datetime
 
 NUMBER_OF_SEARCH_RESULT = 1
+
 
 class ActionHelloWorld(Action):
 
@@ -25,8 +27,55 @@ class ActionHelloWorld(Action):
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
         dispatcher.utter_message(text="Hello Pooge!")
-        #dispatcher.utter_message(text="Testing")
-        #dispatcher.utter_message(text=str(tracker.current_state()['latest_message']['text']))
+
+        return []
+
+class ActionAiringToday(Action):
+
+    def name(self) -> Text:
+        return "action_airing_today"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+        jikan = Jikan()
+        today_date = datetime.today().strftime('%A').lower()
+        dispatcher.utter_message(text="Here are some anime that are airing today")
+        today_anime = jikan.schedule(day=today_date)[today_date][:3]
+
+        for anime in today_anime:
+            dispatcher.utter_message(text=anime['title'])
+
+        return []
+
+
+class ActionTopAnime(Action):
+
+    def name(self) -> Text:
+        return "action_top_anime"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+        jikan = Jikan()
+        top_anime = jikan.top(type='anime')
+        animes = top_anime['top'][:NUMBER_OF_SEARCH_RESULT]
+
+        dispatcher.utter_message(text="Displaying the top " + str(NUMBER_OF_SEARCH_RESULT) + " anime")
+
+        for anime in animes:
+            image = {
+                "type": "image",
+                "payload": {
+                    "src": anime['image_url']
+                }
+            }
+
+            dispatcher.utter_message(text=anime['title'], attachment=image)
+            dispatcher.utter_message(text="Score: " + str(anime['score']))
+            dispatcher.utter_message(text="Read more about it here: " + anime['url'])
 
         return []
 
@@ -63,14 +112,6 @@ class ActionSearch(Action):
             dispatcher.utter_message(text=i['title'], attachment=image)
             dispatcher.utter_message(attachment=video)
             dispatcher.utter_message(text="Read more about it here: " + i['url'])
-            #dispatcher.utter_message(text=i['image_url'])
-            #dispatcher.utter_message(text=i['trailer_url'])
-
-            #dispatcher.utter_message(text=i['synopsis'])
-            #dispatcher.utter_message(text=i['score'])
-            #dispatcher.utter_message(text=i['episodes'])
-            #dispatcher.utter_message(text=i['rating'])
-            #dispatcher.utter_message(text="===")
 
         return []
 
@@ -81,15 +122,7 @@ class ActionSearch(Action):
         search = jikan.search('anime', user_input)
         animes = search['results'][:NUMBER_OF_SEARCH_RESULT]  # get first NUMBER_OF_SEARCH_RESULT results
 
-        '''
-        for each anime, retrieve the mal_id and obtain:
-            a. image url
-            b. trailer url
-            c. score
-            d. episodes
-            e. rating
-            f. synopsis
-        '''
+
         for anime in animes:
             anime_output = {}
             mal_id = anime['mal_id']
@@ -99,10 +132,6 @@ class ActionSearch(Action):
             anime_output['url'] = current_anime['url']
             anime_output['image_url'] = current_anime['image_url']
             anime_output['trailer_url'] = current_anime['trailer_url']
-            #anime_output['synopsis'] = current_anime['synopsis']
-            #anime_output['score'] = current_anime['score']
-            #anime_output['episodes'] = current_anime['episodes']
-            #anime_output['rating'] = current_anime['rating']
 
             output.append(anime_output)
 

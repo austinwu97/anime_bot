@@ -10,6 +10,10 @@ intents:
       triggers: action_search
   - get_started:
       trigger: utter_get_started
+  - top_anime:
+      triggers: action_top_anime
+  - airing_today:
+      triggers: action_airing_today
 
 actions:
 - utter_greet
@@ -21,6 +25,8 @@ actions:
 - action_hello_world
 - action_search
 - utter_get_started
+- action_top_anime
+- action_airing_today
 
 templates:
   utter_greet:
