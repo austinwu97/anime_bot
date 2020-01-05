@@ -40,8 +40,9 @@ class ActionHelloWorld(Action):
                 "type": "control",
                 "payload": {
                     "background_color": "#bbccbb",
-                    "fullscreen" : False
-
+                    "fullscreen" : True,
+                    "insert_html" : '<div><span> <a href="http://www.google.com">google </a> <img src="https://cdn.myanimelist.net/r/320x440/images/anime/1819/103287.webp?s=585335b4e7f0b05d2e2157ffdd7cb558">nested</span> <span>stuff</span></div>'
+       
                     # "background_url": "http://caps.animeworld.org/boxart/250/lupinsecretofmamo.jpg"
                 }
             }

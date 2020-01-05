@@ -20,6 +20,21 @@ import {
 
 import * as actionTypes from '../actions/actionTypes';
 
+const WEBCHAT_TARGET_CONTENT = "webchat_target_content";
+
+/**
+ * @param {String} HTML representing a single element
+ * @return {Element}
+ */
+function htmlToElement(html) {
+  var template = document.createElement('template');
+
+  html = html.trim(); // Never return a text node of whitespace as the result
+  template.innerHTML = html;
+  return template.content.firstChild;
+}
+
+
 export default function (storage) {
 
   const initialState = List([]);
@@ -77,6 +92,34 @@ export default function (storage) {
           }
         }
 
+        const insert_html = ctrl_snippet.get('insert_html');
+        if (insert_html !== undefined) {
+          var target_div = document.getElementById(WEBCHAT_TARGET_CONTENT);
+          if (target_div === undefined) {
+            target_div = document.createElement("div"); 
+            target_div.setAttribute("id", WEBCHAT_TARGET_CONTENT);
+            document.body.appendChild(target_div)
+          }
+          var div_node = htmlToElement(insert_html);
+          // remove all childrend node of target div
+          while (target_div.firstChild) {
+            target_div.firstChild.remove();
+          }
+          target_div.appendChild(div_node);
+        }
+
+        const append_html = ctrl_snippet.get('append_html');
+        if (append_html !== undefined) {
+          var target_div = document.getElementById(WEBCHAT_TARGET_CONTENT);
+          if (target_div === undefined) {
+            target_div = document.createElement("div"); 
+            target_div.setAttribute("id", WEBCHAT_TARGET_CONTENT);
+            document.body.appendChild(target_div)
+          }
+          var div_node = htmlToElement(append_html);
+          // just append this child to the target div
+          target_div.appendChild(div_node);
+        }
 
 
         //toggleFullScreen();

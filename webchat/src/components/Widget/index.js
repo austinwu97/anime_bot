@@ -329,7 +329,9 @@ class Widget extends Component {
         addControlSnippet({
           background_url: element.background_url,
           background_color: element.background_color,
-          fullscreen: element.fullscreen
+          fullscreen: element.fullscreen,
+          insert_html: element.insert_html,
+          append_html: element.append_html
         })
       );
     } else {

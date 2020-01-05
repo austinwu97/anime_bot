@@ -61,6 +61,8 @@ export function createControlSnippet(control, sender) {
     background_url: control.background_url,
     background_color: control.background_color,
     fullscreen: control.fullscreen,
+    insert_html: control.insert_html,
+    append_html: control.append_html,
     sender,
     timestamp: new Date().getTime()
   });
