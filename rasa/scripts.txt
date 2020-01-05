@@ -1,2 +1,111 @@
 rasa run -m models --enable-api --cors "*"
 rasa run actions
+
+
+
+=== in actions.py or something of the same nature
+
+control = {
+                "type": "control",
+                "payload": {
+                    "background_color": "#bbccbb",
+                    
+                    "fullscreen" : True,
+                    "set_cssstyle" : """mark{
+  background: orange;
+  color: black;
+""",
+                    "insert_html" : '<div><span> <a href="http://www.google.com">google </a> <img src="https://cdn.myanimelist.net/r/320x440/images/anime/1819/103287.webp?s=585335b4e7f0b05d2e2157ffdd7cb558">nested</span> <span>stuff</span></div>',
+                    "mask_text" : "html"
+       
+                    # "background_url": "http://caps.animeworld.org/boxart/250/lupinsecretofmamo.jpg"
+                }
+            }
+
+
+ dispatcher.utter_message(attachment=control)
+
+ Note: you can have multiple mix-and-match dispatcher.utter_message invocations
+ like 
+ dispatcher.utter_message(attachment=control1)
+ dispatcher.utter_message(attachment=control2)
+ dispatcher.utter_message(text=anime['title'], attachment=image)
+
+ -----
+ use different payloads to control the hosting webpage behavior
+
+-----
+Manipulate Background 
+background_color - > set background using color style, for example 
+"background_color": "#bbccbb",
+background_url -> set backgroundusing image style, for example
+"background_url": "http://caps.animeworld.org/boxart/250/lupinsecretofmamo.jpg"
+ 
+-----
+Control Fullscreen 
+fullscreen -> use boolean value to set
+e.g. 
+"fullscreen" : True,
+or 
+"fullscreen" : False,
+
+-----
+Manipulate html content
+insert_html - INSERT AND REPLACE the entire target html snippet content
+append_html - APPEND some html snippet at the end of existing content
+e.g.
+// inside payload dictionary
+
+ "insert_html" : '<div><span> <a href="http://www.google.com">google </a> <img src="https://cdn.myanimelist.net/r/320x440/images/anime/1819/103287.webp?s=585335b4e7f0b05d2e2157ffdd7cb558">nested</span> <span>stuff</span></div>',
+
+// use a variable to make it neater
+play_youtube_video_snippet = """
+        <div>
+        <h2> Attack on Titan Season 1 Episode 1 ! </h2>
+
+        <iframe width="420" height="315"
+src="https://www.youtube.com/embed/x1ylNdU5mbM?autoplay=0">
+</iframe>
+        </div>
+        """
+        control2 = {
+            "type": "control",
+                "payload": {                    
+                    "insert_html" : play_youtube_video_snippet
+                }
+
+        }
+// SUPER IMPORTANT POINTS
+1) in the html page itself, there must be an existing  DIV with a special 'id' attribute 
+this below - this is where content will be inserted 
+
+<div id="webchat_target_content"></div>
+
+2) the HTML snippet MUST be wrapped within a DIV as in 
+ <div> Hello <p> ha ha <br> <a href=""> a </a> more stuff </div>
+ // ie. it starts with a <DIV> and ends with a matching </DIV> 
+ // the following won't work because DIV is not matching
+ // <div> 11 <div> 22 </div> 
+
+
+-----
+text highlighting 
+using markjs  - https://markjs.io/
+
+
+"mask_text" : "html"   // highlight any text portion with the word "html" 
+"unmask_text" : True   // the value (True/False) doesn't matter, it will un mask all highlighted text
+
+
+-----
+set any additional CSS style needed by any of the html content, including markjs
+"set_cssstyle"   -> insert/replace the entiety of css stylesheet content used for anime bot with the value here 
+"remove_cssstyle" -> the existence of the key will trigger the removal of the entiety of css sheetsheet used for anime bot
+
+e.g. 
+"set_cssstyle" : """mark{
+  background: orange;
+  color: black;
+""",
+
+note: the value for "remove_cssstyle" doesn't matter. 

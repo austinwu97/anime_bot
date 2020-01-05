@@ -63,7 +63,7 @@ class ActionHelloWorld(Action):
         <h2> Attack on Titan Season 1 Episode 1 ! </h2>
 
         <iframe width="420" height="315"
-src="https://www.youtube.com/embed/x1ylNdU5mbM?autoplay=1">
+src="https://www.youtube.com/embed/x1ylNdU5mbM?autoplay=0">
 </iframe>
         </div>
         """

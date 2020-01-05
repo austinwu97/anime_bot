@@ -18,8 +18,8 @@ class ImgReply extends PureComponent {
     if (height === undefined) {
       height = dims.height;
     }
-    console.log("width=", width);
-    console.log("height=", height);
+    //console.log("width=", width);
+    //console.log("height=", height);
     return (
       <div className="image">
         <b className="image-title">
