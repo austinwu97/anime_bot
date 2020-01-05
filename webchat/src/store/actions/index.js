@@ -118,9 +118,22 @@ export function addVideoSnippet(video) {
 }
 
 export function addImageSnippet(image) {
+  console.log("in addImageSnippet")
+  console.log(image);
+  // image is an object of title/image/width/height attribue 
   return {
     type: actions.ADD_NEW_IMAGE_IMGREPLY,
     image
+  };
+}
+
+export function addControlSnippet(control) {
+  console.log("in addControlSnippet")
+  console.log(control);
+  // control is an object of ... attribue 
+  return {
+    type: actions.ADD_NEW_CONTROL_CTLREPLY,
+    control
   };
 }
 

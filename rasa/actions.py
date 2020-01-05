@@ -28,6 +28,25 @@ class ActionHelloWorld(Action):
 
         dispatcher.utter_message(text="Hello Pooge!")
 
+        image = {
+                "type": "image",
+                "payload": {
+                    "src": "http://caps.animeworld.org/boxart/250/lupinsecretofmamo.jpg",
+                    "width": 200,
+                    "height": 300
+                }
+            }
+        control = {
+                "type": "control",
+                "payload": {
+                    "background_color": "#bbccbb",
+                    "fullscreen" : False
+
+                    # "background_url": "http://caps.animeworld.org/boxart/250/lupinsecretofmamo.jpg"
+                }
+            }
+        dispatcher.utter_message(attachment=image)
+        dispatcher.utter_message(attachment=control)
         return []
 
 class ActionAiringToday(Action):

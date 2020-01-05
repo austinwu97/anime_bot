@@ -6,18 +6,26 @@ import './styles.scss';
 class ImgReply extends PureComponent {
   render() {
     const { params: { images: { dims = {} } = {} } } = this.props;
-    const { width, height } = dims;
+    //var { width, height } = dims;
     // Convert map to object
     const message = [...this.props.message.entries()].reduce( (acc, e) => ( 
       acc[e[0]] = e[1], 
       acc), {});
-    const { title, image } = message;
+    var { title, image, width, height } = message;
+    if (width === undefined){
+      width = dims.width;
+    }
+    if (height === undefined) {
+      height = dims.height;
+    }
+    console.log("width=", width);
+    console.log("height=", height);
     return (
       <div className="image">
         <b className="image-title">
           { title }
         </b>
-        <div className="image-details" style={{ width, height }}>
+        <div className="image-details" style= {{width, height}}>
           <img className="image-frame" src={image} />
         </div>
       </div>

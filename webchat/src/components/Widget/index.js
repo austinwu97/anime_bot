@@ -12,6 +12,7 @@ import {
   addLinkSnippet,
   addVideoSnippet,
   addImageSnippet,
+  addControlSnippet,
   addQuickReply,
   renderCustomComponent,
   initialize,
@@ -25,7 +26,7 @@ import {
 } from 'actions';
 
 import { SESSION_NAME, NEXT_MESSAGE } from 'constants';
-import { isSnippet, isVideo, isImage, isQR, isText } from './msgProcessor';
+import { isSnippet, isVideo, isImage, isControl, isQR, isText } from './msgProcessor';
 import WidgetLayout from './layout';
 import { storeLocalSession, getLocalSession } from '../../store/reducers/helper';
 
@@ -305,15 +306,30 @@ class Widget extends Component {
       this.props.dispatch(
         addVideoSnippet({
           title: element.title,
-          video: element.src
+          video: element.src,
+          width: element.width,
+          height: element.height
         })
       );
     } else if (isImage(message)) {
       const element = message.attachment.payload;
+      //console.log("isImage = true")
       this.props.dispatch(
         addImageSnippet({
           title: element.title,
-          image: element.src
+          image: element.src,
+          width : element.width,
+          height: element.height
+        })
+      );
+    } else if (isControl(message)) {
+      const element = message.attachment.payload;
+      console.log("isControl = true")
+      this.props.dispatch(
+        addControlSnippet({
+          background_url: element.background_url,
+          background_color: element.background_color,
+          fullscreen: element.fullscreen
         })
       );
     } else {

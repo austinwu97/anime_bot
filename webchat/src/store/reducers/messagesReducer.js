@@ -7,10 +7,16 @@ import {
     createLinkSnippet,
     createVideoSnippet,
     createImageSnippet,
+    createControlSnippet,
     createComponentMessage,
     storeMessageTo,
-    getLocalSession
+    getLocalSession,
+    storeParamsTo
 } from './helper';
+
+import {
+  toggleFullScreen
+} from '../actions/dispatcher';
 
 import * as actionTypes from '../actions/actionTypes';
 
@@ -20,6 +26,7 @@ export default function (storage) {
 
   return function reducer(state = initialState, action) {
     const storeMessage = storeMessageTo(storage);
+    const storeParams = storeParamsTo(storage);
     switch (action.type) {
       // Each change to the redux store's message list gets recorded to storage
       case actionTypes.ADD_NEW_USER_MESSAGE: {
@@ -36,6 +43,46 @@ export default function (storage) {
       }
       case actionTypes.ADD_NEW_IMAGE_IMGREPLY: {
         return storeMessage(state.push(createImageSnippet(action.image, MESSAGE_SENDER.RESPONSE)));
+      }
+      case actionTypes.ADD_NEW_CONTROL_CTLREPLY: {
+        console.log("in reducer, message Reducer");
+        // we might not want to storeMessage!
+        //return storeMessage(state.push(createControlSnippet(action.control, MESSAGE_SENDER.RESPONSE)));
+        const ctrl_snippet = createControlSnippet(action.control, MESSAGE_SENDER.RESPONSE);
+        const background_url  = ctrl_snippet.get('background_url');
+        if (background_url !== undefined) {
+          const body = document.getElementsByTagName('body')[0];
+          body.style.backgroundImage = ''.concat("url('", background_url, "')");
+        }
+
+        const background_color  = ctrl_snippet.get('background_color');
+        if (background_color !== undefined) {
+          const body = document.getElementsByTagName('body')[0];
+          body.style.backgroundColor  =  background_color;
+        }
+
+        const fullscreen = ctrl_snippet.get('fullscreen');
+        if (fullscreen !== undefined) {
+          const wc = document.getElementsByClassName('widget-container')[0];
+          const launcher = document.getElementsByClassName('launcher')[0];
+            
+          if (fullscreen) {
+            wc.classList.add("full-screen");
+            launcher.classList.add("full-screen");
+            launcher.classList.add("hide");
+          } else {
+            wc.classList.remove("full-screen");
+            launcher.classList.remove("full-screen");
+            launcher.classList.remove("hide");
+          }
+        }
+
+
+
+        //toggleFullScreen();
+        //state.update('fullScreenMode', fullScreenMode => !fullScreenMode)
+        //return storeParams(state.update('fullScreenMode', fullScreenMode => !fullScreenMode));
+        return state;
       }
       case actionTypes.ADD_QUICK_REPLY: {
         return storeMessage(state.push(createQuickReply(action.quickReply, MESSAGE_SENDER.RESPONSE)));

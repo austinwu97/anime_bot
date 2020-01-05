@@ -19,6 +19,9 @@ export const MESSAGES_TYPES = {
   IMGREPLY: {
     IMAGE: 'imgreply'
   },
+  CTLREPLY: {
+    CONTROL: 'ctlreply'
+  },
   QUICK_REPLY: 'quickreply',
   CUSTOM_COMPONENT: 'component'
 };
@@ -33,7 +36,8 @@ export const PROP_TYPES = {
       MESSAGES_TYPES.QUICK_REPLY,
       MESSAGES_TYPES.SNIPPET.LINK,
       MESSAGES_TYPES.IMGREPLY.IMAGE,
-      MESSAGES_TYPES.VIDREPLY.VIDEO
+      MESSAGES_TYPES.VIDREPLY.VIDEO,
+      MESSAGES_TYPES.CTLREPLY.CONTROL  // new
     ]),
     id: PropTypes.number,
     text: PropTypes.string,
@@ -80,6 +84,21 @@ export const PROP_TYPES = {
     ]),
     id: PropTypes.number,
     title: PropTypes.string,
+    src: PropTypes.string,
+    sender: PropTypes.oneOf([
+      MESSAGE_SENDER.CLIENT,
+      MESSAGE_SENDER.RESPONSE
+    ])
+  }),
+
+  // new, control reply
+  CTLREPLY: ImmutablePropTypes.contains({
+    type: PropTypes.oneOf([
+      MESSAGES_TYPES.TEXT,
+      MESSAGES_TYPES.CTLREPLY.CONTROL
+    ]),
+    id: PropTypes.number,
+    cmd: PropTypes.string,
     src: PropTypes.string,
     sender: PropTypes.oneOf([
       MESSAGE_SENDER.CLIENT,

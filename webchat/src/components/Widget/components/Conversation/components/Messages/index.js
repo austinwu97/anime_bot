@@ -4,7 +4,7 @@ import ImmutablePropTypes from 'react-immutable-proptypes';
 import { connect } from 'react-redux';
 
 import { MESSAGES_TYPES } from 'constants';
-import { Video, Image, Message, Snippet, QuickReply } from 'messagesComponents';
+import { Video, Image, Message, Control, Snippet, QuickReply } from 'messagesComponents';
 
 import './styles.scss';
 
@@ -50,6 +50,10 @@ class Messages extends Component {
         }
         case MESSAGES_TYPES.IMGREPLY.IMAGE: {
           return Image;
+        }
+        // we might not want to render this at all
+        case MESSAGES_TYPES.CTLREPLY.CONTROL: {
+          return Control;
         }
         case MESSAGES_TYPES.QUICK_REPLY: {
           return QuickReply;

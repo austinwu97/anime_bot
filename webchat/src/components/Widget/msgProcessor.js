@@ -21,6 +21,12 @@ export function isImage(message) {
   && message.attachment.type === 'image'
 }
 
+export function isControl(message) {
+  return Object.keys(message).includes('attachment')
+  && Object.keys(message.attachment).includes('type')
+  && message.attachment.type === 'control'
+}
+
 export function isText(message) {
   return Object.keys(message).length === 1 && Object.keys(message).includes('text');
 }
