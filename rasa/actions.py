@@ -64,7 +64,16 @@ class ActionAiringToday(Action):
         today_anime = jikan.schedule(day=today_date)[today_date][:3]
 
         for anime in today_anime:
-            dispatcher.utter_message(text=anime['title'])
+
+            image = {
+                "type": "image",
+                "payload": {
+                    "src": anime['image_url']
+                }
+            }
+
+            dispatcher.utter_message(text=anime['title'], attachment=image)
+            dispatcher.utter_message(text="Read more about it here: " + anime['url'])
 
         return []
 
@@ -80,9 +89,9 @@ class ActionTopAnime(Action):
 
         jikan = Jikan()
         top_anime = jikan.top(type='anime')
-        animes = top_anime['top'][:NUMBER_OF_SEARCH_RESULT]
+        animes = top_anime['top'][:5]
 
-        dispatcher.utter_message(text="Displaying the top " + str(NUMBER_OF_SEARCH_RESULT) + " anime")
+        dispatcher.utter_message(text="Displaying the top 5 anime")
 
         for anime in animes:
             image = {

@@ -14,6 +14,8 @@ intents:
       triggers: action_top_anime
   - airing_today:
       triggers: action_airing_today
+  - ask_faq:
+      triggers: respond_ask_faq
 
 actions:
 - utter_greet
@@ -27,6 +29,7 @@ actions:
 - utter_get_started
 - action_top_anime
 - action_airing_today
+- respond_ask_faq
 
 templates:
   utter_greet:

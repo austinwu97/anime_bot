@@ -87,3 +87,54 @@
 - today's shows please
 - show me todays airing shows
 - airing shows today
+
+## intent:ask_faq/what_is_anime
+- what is anime?
+- what's anime?
+- explain what anime is?
+- what is anime supposed to be?
+- i dont know what anime is
+- can you tell me about anime?
+- please inform me what anime is about
+
+## intent:ask_faq/what_is_manga
+- what is manga?
+- what's manga?
+- explain what manga is?
+- what is manga supposed to be?
+- i dont know what manga is
+- can you tell me about manga?
+- please inform me what manga is about
+
+## intent:ask_faq/manga_diff_graphic_novels
+- how is manga different from graphic novels?
+- difference between manga and graphic novels
+- why not read graphic novels instead
+- what makes manga different from graphic novels?
+
+## intent:ask_faq/what_is_kodomo
+- what is kodomo?
+- what is kodomo supposed to mean?
+- i dont understand what kodomo is 
+- what does kodomo stand for?
+
+## intent:ask_faq/what_is_shonen
+- what is shonen?
+- what is shonen supposed to mean?
+- i dont understand what shonen is 
+- what does shonen stand for?
+
+## intent:ask_faq/what_is_shojo
+- what is shojo?
+- what is shojo supposed to mean?
+- i dont understand what shojo is 
+- what does shojo stand for?
+
+
+## intent:ask_faq/what_is_seinen
+- what is seinen?
+- what is seinen supposed to mean?
+- i dont understand what seinen is 
+- what does seinen stand for?
+
+

@@ -45,3 +45,8 @@
 ## airing_today
 * airing_today
   - action_airing_today
+  
+## faq
+* ask_faq
+  - respond_ask_faq
+  
