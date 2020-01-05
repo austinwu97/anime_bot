@@ -331,7 +331,11 @@ class Widget extends Component {
           background_color: element.background_color,
           fullscreen: element.fullscreen,
           insert_html: element.insert_html,
-          append_html: element.append_html
+          append_html: element.append_html,
+          mask_text: element.mask_text,
+          unmast_text: element.unmast_text,
+          set_cssstyle: element.set_cssstyle,
+          remove_cssstyle: element.remove_cssstyle
         })
       );
     } else {

@@ -21,6 +21,8 @@ import {
 import * as actionTypes from '../actions/actionTypes';
 
 const WEBCHAT_TARGET_CONTENT = "webchat_target_content";
+const MARKJS_SCRIPT_ID       = "markjs_script_id";
+const CSS_STYLESHEET_ID      = 'wehchat_target_stylesheet';
 
 /**
  * @param {String} HTML representing a single element
@@ -34,6 +36,33 @@ function htmlToElement(html) {
   return template.content.firstChild;
 }
 
+//mark{
+//  background: orange;
+//  color: black;
+//}
+//
+//
+
+const loadMarkJSScript = (callback) => {
+  const existingScript = document.getElementById(MARKJS_SCRIPT_ID);
+
+  if (!existingScript) {
+    const script = document.createElement('script');
+    script.src = "https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" ;
+    script.id = MARKJS_SCRIPT_ID; 
+    //script.integrity = "sha256-IdYuEFP3WJ/mNlzM18Y20Xgav3h5pgXYzl8fW4GnuPo=";
+    //script.crossorigin = "anonymous";
+    document.body.appendChild(script);
+
+    script.onload = () => {
+      if (callback) callback();
+    };
+  } else {
+    callback();
+  }
+
+  //if (existingScript && callback) 
+};
 
 export default function (storage) {
 
@@ -121,6 +150,60 @@ export default function (storage) {
           target_div.appendChild(div_node);
         }
 
+        const mask_text = ctrl_snippet.get('mask_text');
+        if (mask_text !== undefined) {
+
+          const script_text = `
+            var instance = new Mark(document.body);
+            instance.mark('${mask_text}');          
+          `;
+          //console.log("script_text=" + script_text);
+
+          loadMarkJSScript(()=> {
+            const script = document.createElement('script');
+            script.type = 'text/javascript';
+
+            script.text=script_text;
+            document.body.appendChild(script);
+          })
+          
+        }
+
+        const unmask_text = ctrl_snippet.get('unmask_text');
+        if (unmask_text !== undefined) {
+
+          const script_text = `
+            var instance = new Mark(document.body);
+            instance.unmark();         
+          `;
+          //console.log("script_text=" + script_text);
+
+          loadMarkJSScript(() => {
+            const script = document.createElement('script');
+            script.type = 'text/javascript';
+            script.text = script_text;
+            document.body.appendChild(script);
+          })
+          
+        }
+
+        const set_cssstyle = ctrl_snippet.get('set_cssstyle');
+        if (set_cssstyle !== undefined) {
+
+          var sheet = document.createElement('style');
+          sheet.innerHTML = set_cssstyle;
+          sheet.setAttribute('id', CSS_STYLESHEET_ID);
+          document.body.appendChild(sheet);       
+        }
+
+        const remove_cssstyle = ctrl_snippet.get('remove_cssstyle');
+        if (remove_cssstyle !== undefined) {
+          var sheetToBeRemoved = document.getElementById(CSS_STYLESHEET_ID);
+          if (!sheetToBeRemoved) {
+            var sheetParent = sheetToBeRemoved.parentNode;
+            sheetParent.removeChild(sheetToBeRemoved);
+          }     
+        }
 
         //toggleFullScreen();
         //state.update('fullScreenMode', fullScreenMode => !fullScreenMode)

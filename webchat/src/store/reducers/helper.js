@@ -63,6 +63,10 @@ export function createControlSnippet(control, sender) {
     fullscreen: control.fullscreen,
     insert_html: control.insert_html,
     append_html: control.append_html,
+    mask_text: control.mask_text,
+    unmask_text: control.unmask_text,
+    set_cssstyle: control.set_cssstyle,
+    remove_cssstyle: control.remove_cssstyle,
     sender,
     timestamp: new Date().getTime()
   });
