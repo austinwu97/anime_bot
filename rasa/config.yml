@@ -3,7 +3,14 @@
 language: en
 pipeline:
 - name: "WhitespaceTokenizer"
+- name: CRFEntityExtractor
+- name: "SpacyNLP"
+  model: "en_core_web_sm"
+- name: SpacyEntityExtractor
+  dimensions: ["CARDINAL"]
+- name: EntitySynonymMapper
 - name: "CountVectorsFeaturizer"
+  token_pattern: (?u)\b\w+\b
 - name: "EmbeddingIntentClassifier"
 - name: "ResponseSelector"
 #- name: "supervised_embeddings"
@@ -15,3 +22,4 @@ policies:
   - name: MemoizationPolicy
   - name: KerasPolicy
   - name: MappingPolicy
+  - name: FormPolicy

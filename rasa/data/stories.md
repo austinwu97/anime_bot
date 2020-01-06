@@ -49,4 +49,9 @@
 ## faq
 * ask_faq
   - respond_ask_faq
-  
+ 
+## genre path 
+* request_genre
+  - genre_form
+  - form{"name": "genre_form"}
+  - form{"name": null}

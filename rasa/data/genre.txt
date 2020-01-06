@@ -1,0 +1,15 @@
+action
+adventure
+comedy
+mystery
+drama
+fantasy
+horror
+romance
+school
+space
+psychological
+thriller
+seinen
+josei
+

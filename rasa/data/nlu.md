@@ -137,4 +137,70 @@
 - i dont understand what seinen is 
 - what does seinen stand for?
 
+## intent:request_genre
+- [3](num_anime) most popular [action](genre) anime
+- [2](num_anime) most popular [adventure](genre) anime
+- [1](num_anime) most popular [comedy](genre) anime
+- [5](num_anime) most popular [mystery](genre) anime
+- [6](num_anime) most popular [drama](genre) anime
+- [7](num_anime) most popular [fantasy](genre) anime
+- [1](num_anime) most popular [horror](genre) anime
+- [2](num_anime) most popular [romance](genre) anime
+- [3](num_anime) most popular [school](genre) anime
+- [4](num_anime) most popular [space](genre) anime
+- [5](num_anime) most popular [psychological](genre) anime
+- [2](num_anime) most popular [thriller](genre) anime
+- [1](num_anime) most popular [seinen](genre) anime
+- [3](num_anime) most popular [josei](genre) anime
 
+## intent:inform
+- i'm looking for [seinen](genre)
+- [seinen](genre)
+- i'm looking for [action](genre)
+- [action](genre)
+- i'm looking for [comedy](genre)
+- [comedy](genre)
+- i'm looking for [mystery](genre)
+- [mystery](genre)
+- i'm looking for [drama](genre)
+- [drama](genre)
+- i'm looking for [fantasy](genre)
+- [fantasy](genre)
+- i'm looking for [horror](genre)
+- [horror](genre)
+- i'm looking for [space](genre)
+- [space](genre)
+- i'm looking for [psychological](genre)
+- [psychological](genre)
+- i'm looking for [thriller](genre)
+- [thriller](genre)
+- i'm looking for [action](genre)
+- [action](genre)
+- i'm looking for [seinen](genre)
+- [seinen](genre)
+- i'm looking for [josei](genre)
+- [josei](genre)
+- [nine](num_anime) anime 
+- [two](num_anime) anime 
+- [three](num_anime) anime 
+- [five](num_anime) anime 
+- [4](num_anime) anime 
+- [1](num_anime) please
+- [3](num_anime)  
+- [8](num_anime) 
+- [nine](num_anime) 
+
+
+
+
+## lookup:genre
+genre.txt
+
+#- most popular anime
+#- what are the most popular animes
+#- i'm looking for popular anime
+#- find me a popular anime
+#- popular anime
+#- i need a popular anime
+#- popular anime
+#- popular anime please 

@@ -16,6 +16,25 @@ intents:
       triggers: action_airing_today
   - ask_faq:
       triggers: respond_ask_faq
+  - request_genre:
+     # triggers: genre_form
+      use_entities: []
+  - inform
+
+entities:
+  - genre
+  - num_anime
+
+slots:
+  genre:
+    type: unfeaturized
+    auto_fill: false
+  num_anime:
+    type: unfeaturized
+    auto_fill: false
+
+forms:
+  - genre_form
 
 actions:
 - utter_greet
@@ -30,6 +49,9 @@ actions:
 - action_top_anime
 - action_airing_today
 - respond_ask_faq
+- utter_ask_genre
+- utter_ask_num_anime
+
 
 templates:
   utter_greet:
@@ -56,3 +78,11 @@ templates:
 
   utter_default:
   - text: I'm sorry that I don't understand you
+
+  utter_ask_genre:
+  - text: "What genre anime should I search?"
+
+  utter_ask_num_anime:
+    - text: "How many anime should I display?"
+
+
