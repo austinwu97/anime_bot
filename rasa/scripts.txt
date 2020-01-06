@@ -34,23 +34,26 @@ control = {
  -----
  use different payloads to control the hosting webpage behavior
 
------
+=========================
 Manipulate Background 
+=========================
 background_color - > set background using color style, for example 
 "background_color": "#bbccbb",
 background_url -> set backgroundusing image style, for example
 "background_url": "http://caps.animeworld.org/boxart/250/lupinsecretofmamo.jpg"
  
------
+=======================
 Control Fullscreen 
+=======================
 fullscreen -> use boolean value to set
 e.g. 
 "fullscreen" : True,
 or 
 "fullscreen" : False,
 
------
+=======================
 Manipulate html content
+=======================
 insert_html - INSERT AND REPLACE the entire target html snippet content
 append_html - APPEND some html snippet at the end of existing content
 e.g.
@@ -88,8 +91,9 @@ this below - this is where content will be inserted
  // <div> 11 <div> 22 </div> 
 
 
------
+=======================
 text highlighting 
+=======================
 using markjs  - https://markjs.io/
 
 
@@ -97,8 +101,11 @@ using markjs  - https://markjs.io/
 "unmask_text" : True   // the value (True/False) doesn't matter, it will un mask all highlighted text
 
 
------
-set any additional CSS style needed by any of the html content, including markjs
+=======================
+set any additional CSS style 
+=======================
+set/unset any css setting needed by any of the html content maniplated by anime bot, including markjs
+
 "set_cssstyle"   -> insert/replace the entiety of css stylesheet content used for anime bot with the value here 
 "remove_cssstyle" -> the existence of the key will trigger the removal of the entiety of css sheetsheet used for anime bot
 
@@ -106,6 +113,14 @@ e.g.
 "set_cssstyle" : """mark{
   background: orange;
   color: black;
-""",
+"""
+// the above css style setting is read by markjs (optional)
 
 note: the value for "remove_cssstyle" doesn't matter. 
+
+========================
+Jump to a different webpage (any) 
+========================
+"jump_url" : "http://cnn.com"
+
+
