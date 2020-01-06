@@ -112,6 +112,55 @@ class ActionHelloWorld(Action):
 
         dispatcher.utter_message(text="Hello Pooge!")
 
+        image = {
+                "type": "image",
+                "payload": {
+                    "src": "http://caps.animeworld.org/boxart/250/lupinsecretofmamo.jpg",
+                    "width": 200,
+                    "height": 300
+                }
+            }
+        control = {
+                "type": "control",
+                "payload": {
+                    "background_color": "#bbccbb",
+                    
+                    "fullscreen" : True,
+                    "set_cssstyle" : """mark{
+  background: orange;
+  color: black;
+""",
+                    "insert_html" : '<div><span> <a href="http://www.google.com">google </a> <img src="https://cdn.myanimelist.net/r/320x440/images/anime/1819/103287.webp?s=585335b4e7f0b05d2e2157ffdd7cb558">nested</span> <span>stuff</span></div>',
+                    "mask_text" : "html"
+       
+                    # "background_url": "http://caps.animeworld.org/boxart/250/lupinsecretofmamo.jpg"
+                }
+            }
+
+        # 
+        # <iframe width="420" height="315"
+        # src="https://www.youtube.com/embed/tgbNymZ7vqY?autoplay=1">
+        # </iframe>
+        #
+        play_youtube_video_snippet = """
+        <div>
+        <h2> Attack on Titan Season 1 Episode 1 ! </h2>
+
+        <iframe width="420" height="315"
+src="https://www.youtube.com/embed/x1ylNdU5mbM?autoplay=0">
+</iframe>
+        </div>
+        """
+        control2 = {
+            "type": "control",
+                "payload": {                    
+                    "insert_html" : play_youtube_video_snippet
+                }
+
+        }
+        dispatcher.utter_message(attachment=image)
+        dispatcher.utter_message(attachment=control)
+        dispatcher.utter_message(attachment=control2)
         return []
 
 class ActionAiringToday(Action):

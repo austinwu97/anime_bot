@@ -11,11 +11,19 @@
    background-color: linen;
 }
 
+
 </style>
 
 <body>
 
-This is dev webchat html page
+
+
+<div class="context">This is dev webchat html page hello austin </div>
+
+
+<div id="webchat_target_content"></div>
+
+html page
 
 <script src="index.js" type="text/javascript"></script>
 <div id="webchat"></div>
@@ -25,9 +33,9 @@ This is dev webchat html page
     initPayload: "/get_started",
     socketUrl: "http://localhost:5005/",
     socketPath: "/socket.io/",
-    title: "My amazing chat",
+    title: "Anime Bot",
     // subtitle: 'A subtitle',
-    inputTextFieldHint: "Type a message...",
+    inputTextFieldHint: "Type a question (<  140 characters)...",
     connectingText: "Waiting for server...",
     hideWhenNotConnected: false,
     onSocketEvent: {
@@ -47,6 +55,12 @@ This is dev webchat html page
     }
   })
 </script>
+
+
+
+
 </body>
+
+
 
 </html>

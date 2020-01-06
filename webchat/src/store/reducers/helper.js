@@ -1,7 +1,7 @@
 import { Map, List } from 'immutable';
 import { MESSAGES_TYPES, MESSAGE_SENDER, SESSION_NAME } from 'constants';
 
-import { Video, Image, Message, Snippet, QuickReply } from 'messagesComponents';
+import { Video, Image, Control, Message, Snippet, QuickReply } from 'messagesComponents';
 
 export function createNewMessage(text, sender) {
   return Map({
@@ -46,8 +46,28 @@ export function createImageSnippet(image, sender) {
     component: Image,
     title: image.title,
     image: image.image,
+    width: image.width,
+    height: image.height,
     sender,
     showAvatar: true,
+    timestamp: new Date().getTime()
+  });
+}
+
+export function createControlSnippet(control, sender) {
+  return Map({
+    type: MESSAGES_TYPES.CTLREPLY.CONTROL,
+    component: Control,
+    background_url: control.background_url,
+    background_color: control.background_color,
+    fullscreen: control.fullscreen,
+    insert_html: control.insert_html,
+    append_html: control.append_html,
+    mask_text: control.mask_text,
+    unmask_text: control.unmask_text,
+    set_cssstyle: control.set_cssstyle,
+    remove_cssstyle: control.remove_cssstyle,
+    sender,
     timestamp: new Date().getTime()
   });
 }

@@ -45,6 +45,10 @@ export function addImageSnippet(image) {
   store.dispatch(actions.addImageSnippet(image));
 }
 
+export function addControlSnippet(control) {
+  store.dispatch(actions.addControlSnippet(control));
+}
+
 export function addQuickReply(quickReply) {
   store.dispatch(actions.addQuickReply(quickReply));
 }

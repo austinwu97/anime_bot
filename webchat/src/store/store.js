@@ -7,6 +7,8 @@ import messages from './reducers/messagesReducer';
 import { getLocalSession } from './reducers/helper';
 import * as actionTypes from './actions/actionTypes';
 
+import { composeWithDevTools } from 'redux-devtools-extension';
+
 let store = 'call initStore first';
 
 function initStore(
@@ -48,12 +50,22 @@ function initStore(
   });
 
   /* eslint-disable no-underscore-dangle */
-  store = createStore(
-    reducer,
-    window.__REDUX_DEVTOOLS_EXTENSION__ &&
+  // before we enabled reduc devTool
+  //store = createStore(
+  //  reducer,
+  //  window.__REDUX_DEVTOOLS_EXTENSION__ &&
+  //    window.__REDUX_DEVTOOLS_EXTENSION__(),
+  //  applyMiddleware(customMiddleWare)
+  //);
+
+  store = createStore(reducer, 
+      window.__REDUX_DEVTOOLS_EXTENSION__ &&
       window.__REDUX_DEVTOOLS_EXTENSION__(),
-    applyMiddleware(customMiddleWare)
-  );
+      composeWithDevTools(
+      applyMiddleware(customMiddleWare),
+  // other store enhancers if any
+  ));
+
   /* eslint-enable */
 }
 
