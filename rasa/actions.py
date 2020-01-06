@@ -7,14 +7,98 @@
 #
 # This is a simple example for a custom action which utters "Hello World!"
 from jikanpy import Jikan
-from typing import Any, Text, Dict, List
-
+from typing import Any, Text, Dict, List, Union
+from rasa_sdk.events import SlotSet
 from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
+from rasa_sdk.forms import FormAction
 from rasa_sdk.events import UserUtteranceReverted
+
 from datetime import datetime
 
 NUMBER_OF_SEARCH_RESULT = 1
+ANIME_GENRES = {
+    'action': 1,
+    'adventure': 2,
+    'comedy': 4,
+    'mystery': 7,
+    'drama': 8,
+    'fantasy': 10,
+    'horror': 14,
+    'romance': 22,
+    'school': 23,
+    'space': 29,
+    'psychological': 40,
+    'thriller': 41,
+    'seinen': 42,
+    'josei': 43
+}
+
+
+
+
+class GenreForm(FormAction):
+
+    def name(self) -> Text:
+        """Unique identifier of the form"""
+
+        return "genre_form"
+
+    @staticmethod
+    def required_slots(tracker: Tracker) -> List[Text]:
+        """A list of required slots that the form has to fill"""
+
+        return ["genre", "num_anime"]
+
+    def slot_mappings(self) -> Dict[Text, Union[Dict, List[Dict]]]:
+        """A dictionary to map required slots to
+            - an extracted entity
+            - intent: value pairs
+            - a whole message
+            or a list of them, where a first match will be picked"""
+
+        return {
+            "genre": [self.from_entity(entity="genre", intent="request_genre"),
+                      self.from_entity(entity="genre", intent=["inform", "request_genre"])],
+
+            "num_anime": [self.from_entity(entity="num_anime", intent=["inform"]),
+                          self.from_entity(entity="CARDINAL")],
+
+        }
+
+    def submit(self,dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict[Text, Any],) -> List[Dict]:
+        """Define what the form has to do
+            after all required slots are filled"""
+
+        genre = tracker.get_slot(key="genre")
+        num_anime = int(tracker.get_slot(key="num_anime"))
+
+        genre = genre.lower()
+
+        if genre not in ANIME_GENRES:
+            dispatcher.utter_message(text="Error, could not find the genre anime. Please try again")
+            return []
+
+        dispatcher.utter_message(text="Displaying the most popular " + str(num_anime) + " anime for " + genre + " anime")
+
+        genre_num = ANIME_GENRES[genre]
+        jikan = Jikan()
+        top_anime = jikan.genre(type='anime', genre_id=genre_num)
+        result = top_anime['anime'][:num_anime]
+
+        for anime in result:
+
+            image = {
+                "type": "image",
+                "payload": {
+                    "src": anime['image_url']
+                }
+            }
+
+            dispatcher.utter_message(text=anime['title'], attachment=image)
+            dispatcher.utter_message(text="Read more about it here: " + anime['url'])
+
+        return [SlotSet("genre", None),SlotSet("num_anime", None)] # reset the form
 
 
 class ActionHelloWorld(Action):
