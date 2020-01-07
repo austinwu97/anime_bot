@@ -1,6 +1,10 @@
 rasa run -m models --enable-api --cors "*"
 rasa run actions
 
+==========================
+image type now support width and height
+
+
 
 
 === in actions.py or something of the same nature
