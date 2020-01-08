@@ -11,20 +11,35 @@
    background-color: linen;
 }
 
-
 </style>
 
-<body>
 
-
-
-<div class="context">This is dev webchat html page hello austin </div>
-
+<h1 style="color: #5e9ca0;">Welcome to Austin's Anime Chat Bot!</h1>
 
 <div id="webchat_target_content"></div>
 
-html page
 
+<h2 style="color: #2e6c80;">What is this bot?</h2>
+<p> This bot was created to help satifiy your anime curiosities! <br>
+Here are some examples of what you can ask:<br>
+     <a href="#" onclick="WebChat.send(text='What are the top anime?')">What are the top anime?</a>
+    <br>
+    <a href="#" onclick="WebChat.send(text='What anime are airing today?')">What anime are airing today?
+    <br>
+    <a href="#" onclick="WebChat.send(text='What is manga?')">What is manga?</a>
+    <br><a href="#" onclick="WebChat.send(text='What is anime?')">What is anime?</a>
+    <br>
+    <a href="#" onclick="WebChat.send(text='popular anime')">Show some popular anime</a>
+    <br>
+    <a href="#" onclick="WebChat.send(text='How is manga different than graphic novels?')">How is manga different than graphic novels?</a>
+    <br>
+    <a href="#" onclick="WebChat.send(text='What are you?')">What are you?</a>
+    <br>
+        <a href="#" onclick="WebChat.send(text='Search attack on titan')">Search attack on titan</a>
+    <br></a>
+</p>
+
+<body>
 <script src="index.js" type="text/javascript"></script>
 <div id="webchat"></div>
 <script>
@@ -33,9 +48,9 @@ html page
     initPayload: "/get_started",
     socketUrl: "http://localhost:5005/",
     socketPath: "/socket.io/",
-    title: "Anime Bot",
+    title: "My amazing chat",
     // subtitle: 'A subtitle',
-    inputTextFieldHint: "Type a question (<  140 characters)...",
+    inputTextFieldHint: "Type a message...",
     connectingText: "Waiting for server...",
     hideWhenNotConnected: false,
     onSocketEvent: {
@@ -55,12 +70,6 @@ html page
     }
   })
 </script>
-
-
-
-
 </body>
-
-
 
 </html>

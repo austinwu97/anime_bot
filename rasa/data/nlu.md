@@ -196,11 +196,3 @@
 ## lookup:genre
 genre.txt
 
-#- most popular anime
-#- what are the most popular animes
-#- i'm looking for popular anime
-#- find me a popular anime
-#- popular anime
-#- i need a popular anime
-#- popular anime
-#- popular anime please 

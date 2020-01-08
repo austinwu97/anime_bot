@@ -91,7 +91,9 @@ class GenreForm(FormAction):
             image = {
                 "type": "image",
                 "payload": {
-                    "src": anime['image_url']
+                    "src": anime['image_url'],
+                    "width": 200,
+                    "height": 300
                 }
             }
 
@@ -110,7 +112,7 @@ class ActionHelloWorld(Action):
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
-        dispatcher.utter_message(text="Hello Pooge!")
+        dispatcher.utter_message(text="Hello and welcome to Austin's Anime Bot!")
 
         image = {
                 "type": "image",
@@ -182,7 +184,9 @@ class ActionAiringToday(Action):
             image = {
                 "type": "image",
                 "payload": {
-                    "src": anime['image_url']
+                    "src": anime['image_url'],
+                    "width": 200,
+                    "height": 300
                 }
             }
 
@@ -211,7 +215,9 @@ class ActionTopAnime(Action):
             image = {
                 "type": "image",
                 "payload": {
-                    "src": anime['image_url']
+                    "src": anime['image_url'],
+                    "width": 200,
+                    "height": 300
                 }
             }
 
@@ -240,7 +246,9 @@ class ActionSearch(Action):
             image = {
                 "type": "image",
                 "payload": {
-                    "src": i['image_url']
+                    "src": i['image_url'],
+                    "width": 200,
+                    "height": 300
                 }
             }
 
