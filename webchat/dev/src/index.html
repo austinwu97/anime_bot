@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Mr.Bot - Web Chat</title>
+    <title>Austin's Bot</title>
 </head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -22,20 +22,20 @@
 <h2 style="color: #2e6c80;">What is this bot?</h2>
 <p> This bot was created to help satifiy your anime curiosities! <br>
 Here are some examples of what you can ask:<br>
-     <a href="#" onclick="WebChat.send(text='What are the top anime?')">What are the top anime?</a>
+     <a href="#" onclick="WebChat.send('What are the top anime?',text='What are the top anime?')">What are the top anime?</a>
     <br>
-    <a href="#" onclick="WebChat.send(text='What anime are airing today?')">What anime are airing today?
+    <a href="#" onclick="WebChat.send('What anime are airing today?',text='What anime are airing today?')">What anime are airing today?
     <br>
-    <a href="#" onclick="WebChat.send(text='What is manga?')">What is manga?</a>
-    <br><a href="#" onclick="WebChat.send(text='What is anime?')">What is anime?</a>
+    <a href="#" onclick="WebChat.send('What is manga?',text='What is manga?')">What is manga?</a>
+    <br><a href="#" onclick="WebChat.send('What is anime?',text='What is anime?')">What is anime?</a>
     <br>
-    <a href="#" onclick="WebChat.send(text='popular anime')">Show some popular anime</a>
+    <a href="#" onclick="WebChat.send('popular anime',text='popular anime')">Show some popular anime</a>
     <br>
-    <a href="#" onclick="WebChat.send(text='How is manga different than graphic novels?')">How is manga different than graphic novels?</a>
+    <a href="#" onclick="WebChat.send('How is manga different than graphic novels?',text='How is manga different than graphic novels?')">How is manga different than graphic novels?</a>
     <br>
-    <a href="#" onclick="WebChat.send(text='What are you?')">What are you?</a>
+    <a href="#" onclick="WebChat.send('What are you?',text='What are you?')">What are you?</a>
     <br>
-        <a href="#" onclick="WebChat.send(text='Search attack on titan')">Search attack on titan</a>
+        <a href="#" onclick="WebChat.send('Search attack on titan',text='Search attack on titan')">Search attack on titan</a>
     <br></a>
 </p>
 
@@ -48,10 +48,10 @@ Here are some examples of what you can ask:<br>
     initPayload: "/get_started",
     socketUrl: "http://localhost:5005/",
     socketPath: "/socket.io/",
-    title: "My amazing chat",
+    title: "Austin's Anime Bot",
     // subtitle: 'A subtitle',
     inputTextFieldHint: "Type a message...",
-    connectingText: "Waiting for server...",
+    connectingText: "Waiting for server... please wait a moment",
     hideWhenNotConnected: false,
     onSocketEvent: {
       'bot_uttered': () => console.log('bot uttered'),
