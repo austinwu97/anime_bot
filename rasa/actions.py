@@ -35,8 +35,6 @@ ANIME_GENRES = {
 }
 
 
-
-
 class GenreForm(FormAction):
 
     def name(self) -> Text:
@@ -100,7 +98,7 @@ class GenreForm(FormAction):
             dispatcher.utter_message(text=anime['title'], attachment=image)
             dispatcher.utter_message(text="Read more about it here: " + anime['url'])
 
-        return [SlotSet("genre", None),SlotSet("num_anime", None)] # reset the form
+        return [SlotSet("genre", None),SlotSet("num_anime", None)]  # reset the form
 
 
 class ActionHelloWorld(Action):
@@ -238,7 +236,7 @@ class ActionSearch(Action):
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
         dispatcher.utter_message(text="Returning the top 1 results...")
-        #dispatcher.utter_message(text=str(tracker.current_state()['latest_message']['text']))
+        # dispatcher.utter_message(text=str(tracker.current_state()['latest_message']['text']))
         user_input = tracker.current_state()['latest_message']['text']
         output = self.search(user_input)
         for i in output:
@@ -286,3 +284,4 @@ class ActionSearch(Action):
             output.append(anime_output)
 
         return output
+
