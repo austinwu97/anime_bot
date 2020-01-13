@@ -69,13 +69,20 @@ class GenreForm(FormAction):
             after all required slots are filled"""
 
         genre = tracker.get_slot(key="genre")
-        num_anime = int(tracker.get_slot(key="num_anime"))
-
+        num_anime = tracker.get_slot(key="num_anime")
         genre = genre.lower()
 
+        # error checking for genre
         if genre not in ANIME_GENRES:
             dispatcher.utter_message(text="Error, could not find the genre anime. Please try again")
-            return []
+            return [SlotSet("genre", None), SlotSet("num_anime", None)]  # reset the form
+
+        # error checking for num_anime
+        try:
+            num_anime = int(num_anime)
+        except ValueError:
+            dispatcher.utter_message(text="Error, please enter the number of anime as a digit. Please try again")
+            return [SlotSet("num_anime", None)]  # reset the form
 
         dispatcher.utter_message(text="Displaying the most popular " + str(num_anime) + " anime for " + genre + " anime")
 
@@ -111,7 +118,7 @@ class ActionHelloWorld(Action):
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
         dispatcher.utter_message(text="Hello and welcome to Austin's Anime Bot!")
-
+        '''
         image = {
                 "type": "image",
                 "payload": {
@@ -119,16 +126,16 @@ class ActionHelloWorld(Action):
                     "width": 200,
                     "height": 300
                 }
-            }
+            }'''
         control = {
                 "type": "control",
                 "payload": {
                     "background_color": "#bbccbb",
-                    
-                    "fullscreen" : True,
+
+                    "fullscreen" : False,
                     "set_cssstyle" : """mark{
-  background: orange;
-  color: black;
+                    background: orange;
+                    color: black;
 """,
                     "insert_html" : '<div><span> <a href="http://www.google.com">google </a> <img src="https://cdn.myanimelist.net/r/320x440/images/anime/1819/103287.webp?s=585335b4e7f0b05d2e2157ffdd7cb558">nested</span> <span>stuff</span></div>',
                     "mask_text" : "html"
@@ -154,14 +161,15 @@ src="https://www.youtube.com/embed/x1ylNdU5mbM?autoplay=0">
         control2 = {
             "type": "control",
                 "payload": {                    
-                    "insert_html" : play_youtube_video_snippet
+                    "insert_html": play_youtube_video_snippet
                 }
 
         }
-        dispatcher.utter_message(attachment=image)
-        dispatcher.utter_message(attachment=control)
+        #dispatcher.utter_message(attachment=image)
+        #dispatcher.utter_message(attachment=control)
         dispatcher.utter_message(attachment=control2)
         return []
+
 
 class ActionAiringToday(Action):
 
@@ -269,7 +277,6 @@ class ActionSearch(Action):
         user_input = user_input.split(' ', 1)[1]
         search = jikan.search('anime', user_input)
         animes = search['results'][:NUMBER_OF_SEARCH_RESULT]  # get first NUMBER_OF_SEARCH_RESULT results
-
 
         for anime in animes:
             anime_output = {}
