@@ -137,7 +137,8 @@ class ActionHelloWorld(Action):
                     background: orange;
                     color: black;
 """,
-                    "insert_html" : '<div><span> <a href="http://www.google.com">google </a> <img src="https://cdn.myanimelist.net/r/320x440/images/anime/1819/103287.webp?s=585335b4e7f0b05d2e2157ffdd7cb558">nested</span> <span>stuff</span></div>',
+                    #"insert_html" : '<div><span> <a href="http://www.google.com">google </a> <img src="https://cdn.myanimelist.net/r/320x440/images/anime/1819/103287.webp?s=585335b4e7f0b05d2e2157ffdd7cb558">nested</span> <span>stuff</span></div>',
+                    "insert_html": '<div><span><img src="https://cdn.myanimelist.net/r/320x440/images/anime/1819/103287.webp?s=585335b4e7f0b05d2e2157ffdd7cb558" style="position:fixed; left:50px; bottom: 50px; width:400px; height:500px;" ></span></div>',
                     "mask_text" : "html"
        
                     # "background_url": "http://caps.animeworld.org/boxart/250/lupinsecretofmamo.jpg"
@@ -147,27 +148,27 @@ class ActionHelloWorld(Action):
         # 
         # <iframe width="420" height="315"
         # src="https://www.youtube.com/embed/tgbNymZ7vqY?autoplay=1">
-        # </iframe>
+        # </iframe> <h2> Attack on Titan Season 1 Episode 1 ! </h2>
         #
         play_youtube_video_snippet = """
         <div>
-        <h2> Attack on Titan Season 1 Episode 1 ! </h2>
-
+        <h2 style = "position:fixed; left:500px; top:200px;"> Watch the trailer here! </h2>
         <iframe width="420" height="315"
-src="https://www.youtube.com/embed/x1ylNdU5mbM?autoplay=0">
+src="https://www.youtube.com/embed/x1ylNdU5mbM?autoplay=0" style="position:fixed; left:400px; bottom:100px;">
 </iframe>
         </div>
         """
         control2 = {
             "type": "control",
-                "payload": {                    
+                "payload": {
                     "insert_html": play_youtube_video_snippet
+
                 }
 
         }
         #dispatcher.utter_message(attachment=image)
         #dispatcher.utter_message(attachment=control)
-        dispatcher.utter_message(attachment=control2)
+        #dispatcher.utter_message(attachment=control2)
         return []
 
 
@@ -257,6 +258,7 @@ class ActionSearch(Action):
                     "height": 300
                 }
             }
+            video_url = i['trailer_url']
 
             video = {
                 "type": "video",
@@ -266,8 +268,28 @@ class ActionSearch(Action):
             }
 
             dispatcher.utter_message(text=i['title'], attachment=image)
-            dispatcher.utter_message(attachment=video)
+            # dispatcher.utter_message(attachment=video)
+
+            play_youtube_video_snippet = """
+                    <div>
+                    <iframe width="420" height="315"
+            src=%s style="position:fixed; left:400px; bottom:100px;">
+            </iframe>
+                    </div>
+                    """ %(video_url)
+            control = {
+                "type": "control",
+                "payload": {
+                    "insert_html": play_youtube_video_snippet
+
+                }
+
+            }
+            # dispatcher.utter_message(attachment=image)
+            # dispatcher.utter_message(attachment=control)
+            dispatcher.utter_message(attachment=control)
             dispatcher.utter_message(text="Read more about it here: " + i['url'])
+            dispatcher.utter_message(text="Look to the left to see a trailer!")
 
         return []
 
