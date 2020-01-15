@@ -53,7 +53,7 @@ templates:
   - text: "Hey! How are you?"
 
   utter_get_started:
-  - text: Howdy, welcome to Austin's Anime Bot! Look to the left for the types of questions you can ask me!
+  - text: "Howdy, welcome to Austin's Anime Bot! Look to the left for the types of questions you can ask me!"
 
   utter_goodbye:
   - text: "Bye, see you next time!"
@@ -62,7 +62,7 @@ templates:
   - text: "I am a bot designed for answering your questions about anime, built by Austin and powered by Rasa."
 
   utter_default:
-  - text: I'm sorry that I don't understand you
+  - text: "I'm sorry I don't understand you"
 
   utter_ask_genre:
   - text: "What genre anime should I search?"
