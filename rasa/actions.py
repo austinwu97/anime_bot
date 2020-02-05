@@ -107,71 +107,6 @@ class GenreForm(FormAction):
 
         return [SlotSet("genre", None),SlotSet("num_anime", None)]  # reset the form
 
-
-class ActionHelloWorld(Action):
-
-    def name(self) -> Text:
-        return "action_hello_world"
-
-    def run(self, dispatcher: CollectingDispatcher,
-            tracker: Tracker,
-            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-
-        dispatcher.utter_message(text="Hello and welcome to Austin's Anime Bot!")
-        '''
-        image = {
-                "type": "image",
-                "payload": {
-                    "src": "http://caps.animeworld.org/boxart/250/lupinsecretofmamo.jpg",
-                    "width": 200,
-                    "height": 300
-                }
-            }'''
-        control = {
-                "type": "control",
-                "payload": {
-                    "background_color": "#bbccbb",
-
-                    "fullscreen" : False,
-                    "set_cssstyle" : """mark{
-                    background: orange;
-                    color: black;
-""",
-                    #"insert_html" : '<div><span> <a href="http://www.google.com">google </a> <img src="https://cdn.myanimelist.net/r/320x440/images/anime/1819/103287.webp?s=585335b4e7f0b05d2e2157ffdd7cb558">nested</span> <span>stuff</span></div>',
-                    "insert_html": '<div><span><img src="https://cdn.myanimelist.net/r/320x440/images/anime/1819/103287.webp?s=585335b4e7f0b05d2e2157ffdd7cb558" style="position:fixed; left:50px; bottom: 50px; width:400px; height:500px;" ></span></div>',
-                    "mask_text" : "html"
-       
-                    # "background_url": "http://caps.animeworld.org/boxart/250/lupinsecretofmamo.jpg"
-                }
-            }
-
-        # 
-        # <iframe width="420" height="315"
-        # src="https://www.youtube.com/embed/tgbNymZ7vqY?autoplay=1">
-        # </iframe> <h2> Attack on Titan Season 1 Episode 1 ! </h2>
-        #
-        play_youtube_video_snippet = """
-        <div>
-        <h2 style = "position:fixed; left:500px; top:200px;"> Watch the trailer here! </h2>
-        <iframe width="420" height="315"
-src="https://www.youtube.com/embed/x1ylNdU5mbM?autoplay=0" style="position:fixed; left:400px; bottom:100px;">
-</iframe>
-        </div>
-        """
-        control2 = {
-            "type": "control",
-                "payload": {
-                    "insert_html": play_youtube_video_snippet
-
-                }
-
-        }
-        #dispatcher.utter_message(attachment=image)
-        #dispatcher.utter_message(attachment=control)
-        #dispatcher.utter_message(attachment=control2)
-        return []
-
-
 class ActionAiringToday(Action):
 
     def name(self) -> Text:
@@ -199,6 +134,27 @@ class ActionAiringToday(Action):
 
             dispatcher.utter_message(text=anime['title'], attachment=image)
             dispatcher.utter_message(text="Read more about it here: " + anime['url'])
+
+        return []
+
+class ActionGetStarted(Action):
+
+    def name(self) -> Text:
+        return "action_get_started"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+        control = {
+            "type": "control",
+            "payload": {
+                 "fullscreen": True,
+            }
+        }
+
+        dispatcher.utter_message(attachment=control)
+        dispatcher.utter_message(text="Howdy, welcome to Austin's Anime Bot! Look to the left for the types of questions you can ask me!")
 
         return []
 
@@ -245,7 +201,6 @@ class ActionSearch(Action):
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
         dispatcher.utter_message(text="Returning the top 1 results...")
-        # dispatcher.utter_message(text=str(tracker.current_state()['latest_message']['text']))
         user_input = tracker.current_state()['latest_message']['text']
         output = self.search(user_input)
         for i in output:
@@ -258,7 +213,6 @@ class ActionSearch(Action):
                     "height": 300
                 }
             }
-            video_url = i['trailer_url']
 
             video = {
                 "type": "video",
@@ -268,7 +222,10 @@ class ActionSearch(Action):
             }
 
             dispatcher.utter_message(text=i['title'], attachment=image)
-            # dispatcher.utter_message(attachment=video)
+            dispatcher.utter_message(text="Here's a trailer!")
+            dispatcher.utter_message(attachment=video)
+
+            '''
 
             play_youtube_video_snippet = """
                     <div>
@@ -284,12 +241,8 @@ class ActionSearch(Action):
 
                 }
 
-            }
-            # dispatcher.utter_message(attachment=image)
-            # dispatcher.utter_message(attachment=control)
-            dispatcher.utter_message(attachment=control)
+            }'''
             dispatcher.utter_message(text="Read more about it here: " + i['url'])
-            dispatcher.utter_message(text="Look to the left to see a trailer!")
 
         return []
 

@@ -7,6 +7,23 @@
 - hey there
 - how are you
 
+## intent:welcome
+- thanks!
+- that was very useful!
+- thank you so much!
+- thanks for the info!
+- very informative!
+- thank you
+- muchos gracias
+- arigatou
+- xie xie
+- well done
+- great job
+- thanks for answering my questions
+- very good
+- awesome
+- great help
+
 ## intent:goodbye
 - bye
 - goodbye

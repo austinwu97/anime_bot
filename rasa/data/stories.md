@@ -1,6 +1,10 @@
 ## happy path
 * greet
-  - action_hello_world
+  - utter_greet
+
+## welcome 
+* welcome
+  - utter_welcome 
  
 ## goodbye
 * goodbye
@@ -24,7 +28,7 @@
   
 ## get_started
 * get_started
-  - utter_get_started
+  - action_get_started
  
 ## top_anime
 * top_anime
